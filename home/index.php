@@ -1,7 +1,30 @@
 <?php
+
+include($_SERVER['DOCUMENT_ROOT'].'/Society/config.php');
+$con = mysqli_connect($servername,$username,$password,"society_db");
+define("SECRETKEY", "mysecretkey12345");
+
 $hasheduid = $_GET['in'] ?? '';
 
+$uid = openssl_decrypt($hasheduid,"AES-128-ECB",SECRETKEY);
+// ✅ Safety check
+if(!$uid){
 
+    die("Invalid session. Please login again.");
+}
+
+$user = [];
+$res = mysqli_query($con,"SELECT * FROM user_details WHERE uid='$uid'");
+if($res){
+    $user = mysqli_fetch_assoc($res);
+}
+
+$username = $user['f_name'] .' '. $user['l_name'] ?? $user['username'] ?? 'User';
+
+$role_code = $user['prof_type'] ?? 3;
+$role = ($role_code == 1) ? 'admin' : 'resident';
+// echo $role_code . '' . $role;
+// Exit;
 ?>
 
 <!DOCTYPE html>
@@ -513,7 +536,15 @@ max-width:90%;
 <i class="fa fa-times close-btn" onclick="closeSidebar()"></i>
 
 <h5 class="px-3 fw-bold text-white">SocietyHub</h5>
+<div class="px-3 mb-2" style="font-size:13px;color:#9ca3af;">
+  <?php echo $username; ?>
 
+  <?php if($role_code == 1){ ?>
+    <span class="role-badge admin">ADMIN</span>
+  <?php } else { ?>
+    <span class="role-badge resident">RESIDENT</span>
+  <?php } ?>
+</div>
 <a onclick="loadModule('feed/index.php?in=<?php echo $hasheduid ?>', this)">
 <i class="fa fa-newspaper"></i> Feed
 </a>
@@ -527,7 +558,7 @@ max-width:90%;
 <i class="fa fa-exclamation-triangle"></i> Complaints
 </a>
 
-<a href="../login/index.php">
+<a href="../logout.php">
 <i class="fa fa-sign-out"></i> Logout
 </a>
 
@@ -553,10 +584,6 @@ onclick="openSidebar()">
     <small class="text-muted">Welcome back 👋</small>
   </div>
 
-  <div class="d-flex align-items-center gap-2">
-    <img src="https://i.pravatar.cc/35" style="border-radius:50%">
-  </div>
-
 </div>
 
 </div>
@@ -565,14 +592,20 @@ onclick="openSidebar()">
 
 <div class="text-center p-5">
 
-<h4>Welcome</h4>
-<p class="text-muted">Select a module from sidebar</p>
-
+<div id="content-area">
+  <div class="text-center p-5">Loading Feed...</div>
+</div>
 </div>
 
 </div>
 
 </div>
+
+<script>
+window.onload = function(){
+  loadModule('feed/index.php?in=<?php echo $hasheduid ?>');
+}
+</script>
 
 <script>
 

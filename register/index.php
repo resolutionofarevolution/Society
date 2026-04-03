@@ -23,9 +23,8 @@ $server = $protocol . "://" . $_SERVER['SERVER_NAME'] . "/";
 <title>Register</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <style>
 
@@ -61,7 +60,15 @@ body {
 </head>
 
 <body>
-
+<div style="position:absolute; top:20px; left:20px;">
+    <a href="/Society/index.php" style="
+        color:white;
+        text-decoration:none;
+        font-weight:500;
+        font-size:16px;">
+        ← Back to Home
+    </a>
+</div>
 <div class="container">
 <div class="row">
 <div class="col-md-5 col-md-offset-3">
@@ -103,10 +110,6 @@ if(!isset($_POST['next']))
 
 <div class="radio">
 <label><input type="radio" name="profile" value="1" onclick="enableNext()"> Admin</label>
-</div>
-
-<div class="radio">
-<label><input type="radio" name="profile" value="2" onclick="enableNext()"> Security Person</label>
 </div>
 
 <div class="radio">
@@ -222,7 +225,7 @@ Developed by ROARINTECH
 </div>
 
 <!-- jQuery FIRST -->
-<script src="lib/jquery/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
 

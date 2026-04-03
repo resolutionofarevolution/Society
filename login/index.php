@@ -68,7 +68,15 @@ margin-top:10px;
 </head>
 
 <body>
-
+<div style="position:absolute; top:20px; left:20px;">
+    <a href="/Society/index.php" style="
+        color:white;
+        text-decoration:none;
+        font-weight:500;
+        font-size:16px;">
+        ← Back to Home
+    </a>
+</div>
 <div class="container">
 <div class="row">
 <div class="col-md-4 col-md-offset-4">
@@ -115,7 +123,7 @@ Not signed up?
 </div>
 </div>
 
-<script src="lib/jquery/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
 $(function(){
