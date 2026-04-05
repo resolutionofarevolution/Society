@@ -887,7 +887,6 @@ function submitFeed(e){
 
 // ===== DELETE FEED =====
 function deleteFeed(id){
-
   if(!confirm("Delete this post?")) return;
 
   fetch("feed/api_delete_feed.php",{
@@ -899,7 +898,11 @@ function deleteFeed(id){
   .then(text=>{
     console.log("Delete:", text);
 
-    loadModule('feed/index.php?in=<?php echo $hasheduid ?>');
+    if(text.trim() === "success"){
+      loadModule('feed/index.php?in=<?php echo $hasheduid ?>');
+    } else {
+      alert("Delete failed");
+    }
   });
 }
 function loadModule(url){

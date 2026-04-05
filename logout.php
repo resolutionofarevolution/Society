@@ -1,22 +1,32 @@
+// <?php
+// session_start();
+//
+// // Unset all session variables
+// $_SESSION = [];
+//
+// // Destroy session
+// session_destroy();
+//
+// // Delete session cookie (important)
+// if (ini_get("session.use_cookies")) {
+//     $params = session_get_cookie_params();
+//     setcookie(session_name(), '', time() - 42000,
+//         $params["path"], $params["domain"],
+//         $params["secure"], $params["httponly"]
+//     );
+// }
+//
+// // Redirect to login/index page
+// header("Location: /Society/index.php");
+// exit();
+// ?>
+
 <?php
-session_start();
+define("SECRETKEY", "mysecretkey12345");
 
-// Unset all session variables
-$_SESSION = [];
-
-// Destroy session
-session_destroy();
-
-// Delete session cookie (important)
-if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-        $params["path"], $params["domain"],
-        $params["secure"], $params["httponly"]
-    );
+function enc($p){
+    return openssl_encrypt($p, "AES-128-ECB", SECRETKEY);
 }
 
-// Redirect to login/index page
-header("Location: /Society/index.php");
-exit();
+echo enc("Test123");
 ?>

@@ -57,11 +57,6 @@ $result=mysqli_query($con,$query);
     </div>
   </div>
 
-  <div class="post-actions">
-    <div class="post-action">
-      <i class="fa fa-image text-primary"></i> Photo
-    </div>
-  </div>
 
 </div>
 
