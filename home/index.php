@@ -892,7 +892,7 @@ function deleteFeed(id){
   fetch("feed/api_delete_feed.php",{
     method:"POST",
     headers:{"Content-Type":"application/x-www-form-urlencoded"},
-    body:"id="+id
+    body:new URLSearchParams({id:id})
   })
   .then(res=>res.text())
   .then(text=>{

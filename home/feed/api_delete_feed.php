@@ -6,10 +6,14 @@ $con = mysqli_connect($servername,$username,$password,"society_db");
 $id = $_POST['id'] ?? '';
 
 if($id != ''){
-    mysqli_query($con,"DELETE FROM news_details WHERE id='$id'");
-}
+    $id = (int)$id;
 
-// Redirect back
-header("Location: ".$_SERVER['HTTP_REFERER']);
-exit();
+    if(mysqli_query($con,"DELETE FROM news_details WHERE id=$id")){
+        echo "success";
+    } else {
+        echo "sql_error: ".mysqli_error($con);
+    }
+} else {
+    echo "no_id";
+}
 ?>
